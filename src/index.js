@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-import window from 'global/window'
-import document from 'global/document'
 
 export default class ClampLines extends PureComponent {
   constructor(props) {
@@ -18,7 +16,7 @@ export default class ClampLines extends PureComponent {
       text: '.',
     };
 
-    this.ssr = typeof window !== 'undefined' ? true : false;
+    this.ssr = typeof window === 'undefined' ? true : false;
 
     this.action = this.action.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
