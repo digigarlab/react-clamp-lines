@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import window from 'global/window'
+import document from 'global/document'
 
 export default class ClampLines extends PureComponent {
   constructor(props) {
