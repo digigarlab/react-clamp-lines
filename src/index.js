@@ -16,6 +16,8 @@ export default class ClampLines extends PureComponent {
       text: '.',
     };
 
+    this.ssr = typeof window !== 'undefined' ? true : false;
+
     this.action = this.action.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
 
@@ -129,6 +131,11 @@ export default class ClampLines extends PureComponent {
   }
 
   render() {
+
+    if (this.ssr) {
+      return <div>...</div>
+    }
+
     if (!this.props.text) {
       return null;
     }
