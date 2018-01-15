@@ -16,23 +16,31 @@ export default class ClampLines extends PureComponent {
       text: '.',
     };
 
+    this.ssr = typeof window === 'undefined';
+
     this.action = this.action.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
 
-    this.debounced = this.debounce(this.action, props.delay);
+    if (!this.ssr) {
+      this.debounced = this.debounce(this.action, props.delay);
+    }
   }
 
   componentDidMount() {
-    this.lineHeight = this.element.clientHeight + 1;
-    this.clampLines();
+    if (!this.ssr) {
+      this.lineHeight = this.element.clientHeight + 1;
+      this.clampLines();
 
-    if (this.watch) {
-      window.addEventListener('resize', this.debounced);
+      if (this.watch) {
+        window.addEventListener('resize', this.debounced);
+      }
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.debounced);
+    if (!this.ssr) {
+      window.removeEventListener('resize', this.debounced);
+    }
     this.action = null;
     this.clickHandler = null;
   }
